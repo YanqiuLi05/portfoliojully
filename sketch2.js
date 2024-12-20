@@ -1,82 +1,76 @@
-//move your mouse around and click
-let x=0;
-let y=0;
-let M=0;
-let N=0;
-let o=0;
-let p=0;
-function setup() {
- 
-  let cnv = createCanvas(400, 400);
-  cnv.parent('p5-project2-canvas-container'); 
-}
+const sketch = (p) => {
+  let x = 0;
+  let y = 0;
+  let M = 0;
+  let N = 0;
+  let o = 0;
+  let pVal = 0;
 
-function draw() {
- 
-  background("black");
-  
-  push()
-  rectMode(CENTER); 
- 
- let rect1 = dist(mouseX, mouseY, width / 2, height / 2) * 2;//distance of the mouse from canvas center  
-  rect1 = constrain(rect1, 40, 350);
-  
-    if (rect1 > 200) { 
-    fill(255, 200-mouseX+o, 200-mouseY+p,); 
-  } else {
-    fill("white");
-  }//color changes
-  
-rect(width / 2, height / 2, rect1+x, rect1+y,30);
- 
+  p.setup = () => {
+    const cnv = p.createCanvas(400, 300);
+    cnv.parent('p5-project2-canvas-container'); 
+  };
 
- pop()//the biggest square
-  
-  
-push()
-  fill("black")
- push()
-  //translate(200,200)
-  rectMode(CENTER)
-  let centerX = width / 2; 
-  let centerY = height / 2; 
-  let distance = dist(mouseX, mouseY, centerX, centerY);
-  
-  let W1 = constrain(1 + distance, 0, 20); 
-  let H1 = constrain(6 + distance, 0, 120); 
-  rect(130, 180, W1+x, H1+y);//left eye
+  p.draw = () => {
+      p.background("black");
 
+      p.push();
+      p.rectMode(p.CENTER);
 
-  rect(270,180, W1+x,H1+y);//right eye
-  
-  
-  let centerX2 = width / 2; 
-  let centerY2 = height / 2; 
-  let distance2 = dist(mouseX, mouseY, centerX2, centerY2);
+      let rect1 = p.dist(p.mouseX, p.mouseY, p.width / 2, p.height / 2) * 2; // Distance of the mouse from canvas center
+      rect1 = p.constrain(rect1, 40, 350);
 
-  let W2 = constrain(10 + distance , 10, 50); 
-  let H2 = constrain(20 + distance , 10, 100); 
+      if (rect1 > 200) {
+          p.fill(255, 200 - p.mouseX + o, 200 - p.mouseY + pVal);
+      } else {
+          p.fill("white");
+      } // Color changes
 
-  push();
-  translate(200, 300); 
-  rotate(radians(180)); 
-  arc(0, 0, W2+x, H2+y, 0, PI, CHORD); 
-  pop();//mouse
+      p.rect(p.width / 2, p.height / 2, rect1 + x, rect1 + y, 30);
 
-pop()
-pop()//eyes and mouth
+      p.pop(); // The biggest square
 
-}
-function mouseMoved() {
-  if (mouseX > 200) {
-    x = random(1, 20);
-  }
-  if (mouseY > 200) {
-    y = random(1, 20);
-  }
-}//shaking
-function mousePressed(){
-      o=random(100,225)
-  p=random(100,225)
-  }//color changes when clicking
+      // Eyes and mouth
+      p.push();
+      p.fill("black");
+      p.push();
 
+      p.rectMode(p.CENTER);
+      let centerX = p.width / 2;
+      let centerY = p.height / 2;
+      let distance = p.dist(p.mouseX, p.mouseY, centerX, centerY);
+
+      let W1 = p.constrain(1 + distance, 0, 20);
+      let H1 = p.constrain(6 + distance, 0, 120);
+      p.rect(130, 180, W1 + x, H1 + y); // Left eye
+      p.rect(270, 180, W1 + x, H1 + y); // Right eye
+
+      let W2 = p.constrain(10 + distance, 10, 50);
+      let H2 = p.constrain(20 + distance, 10, 100);
+
+      p.push();
+      p.translate(200, 300);
+      p.rotate(p.radians(180));
+      p.arc(0, 0, W2 + x, H2 + y, 0, p.PI, p.CHORD); // Mouth
+      p.pop();
+
+      p.pop();
+      p.pop();
+  };
+
+  p.mouseMoved = () => {
+      if (p.mouseX > 200) {
+          x = p.random(1, 20);
+      }
+      if (p.mouseY > 200) {
+          y = p.random(1, 20);
+      }
+  };
+
+  p.mousePressed = () => {
+      o = p.random(100, 225);
+      pVal = p.random(100, 225);
+  };
+};
+
+new p5(sketch);

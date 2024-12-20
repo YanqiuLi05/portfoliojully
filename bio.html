@@ -48,8 +48,7 @@
             transition: transform 0.3s ease, opacity 0.3s ease;
         }
 
-        /* We'll dynamically apply transforms using JS, 
-           but we can have a default style if needed. */
+
 
         .container {
             text-align: center;
@@ -91,16 +90,16 @@
     </style>
 </head>
 <body>
-    <!-- Stack of square images -->
+    
     <div class="stack-container" id="stackContainer"></div>
 
-    <!-- Bio Content -->
+   
     <div class="container">
         <h1 class="title">About Me</h1>
         <p class="content">
             I am an art student based in New York, working across graphic design, illustration, and installations. My practice spans diverse media, including code, photography, and video. I am passionate about animals—especially dogs—which often serve as inspiration and central themes in my projects. Beyond my love for visual arts, I create short films that tell stories (my weird thoughts).
         </p>
-        
+       
         <div class="back-link">
             <a href="index.html">&#8592; Back to Home</a>
         </div>
@@ -109,7 +108,7 @@
     <script>
         const stackContainer = document.getElementById('stackContainer');
         
-        // Array of image URLs
+       
         let images = [
             'IMG_6731.jpg',
             'IMG_6729.jpg',
@@ -118,12 +117,12 @@
             
         ];
 
-        // Number of cards visible in the stack (top card + a few behind)
+        
         const visibleCount = 3; 
-        // Swipe threshold
+        
         const threshold = 80; 
 
-        // Track dragging
+       
         let isDragging = false;
         let startX = 0;
         let currentX = 0;
@@ -131,7 +130,7 @@
 
         function renderStack() {
             stackContainer.innerHTML = '';
-            // We only need to render up to visibleCount cards
+            
             const toRender = images.slice(0, visibleCount);
             
             toRender.forEach((img, index) => {
@@ -139,18 +138,17 @@
                 slide.className = 'slide';
                 slide.style.backgroundImage = `url(${img})`;
 
-                // Apply transforms based on index 
-                // Top card: no scale, behind cards: slightly scaled and translated down
+                
                 let scale = 1 - index * 0.05;
-                let yOffset = index * 10; // move down slightly
+                let yOffset = index * 10; 
                 slide.style.transform = `translateY(${yOffset}px) scale(${scale})`;
 
-                slide.style.zIndex = visibleCount - index; // top card highest z-index
+                slide.style.zIndex = visibleCount - index; 
 
                 stackContainer.appendChild(slide);
 
                 if (index === 0) {
-                    // Top slide reference
+                    
                     topSlideElement = slide;
                 }
             });
@@ -158,12 +156,12 @@
 
         renderStack();
 
-        // Touch events
+        
         stackContainer.addEventListener('touchstart', dragStart);
         stackContainer.addEventListener('touchmove', dragMove);
         stackContainer.addEventListener('touchend', dragEnd);
 
-        // Mouse events
+       
         stackContainer.addEventListener('mousedown', dragStart);
         stackContainer.addEventListener('mousemove', dragMove);
         stackContainer.addEventListener('mouseup', dragEnd);
@@ -196,15 +194,14 @@
                 topSlideElement.style.opacity = '0';
                 
                 setTimeout(() => {
-                    // Move the first image to the end of the array
                     const moved = images.shift();
                     images.push(moved);
                     renderStack();
                 }, 300);
             } else {
-                // Snap back
+               
                 topSlideElement.style.transform = `translateX(0px) rotate(0deg)`;
-                renderStack(); // Re-render to reset positioning if needed
+                renderStack(); 
             }
 
             currentX = 0;
